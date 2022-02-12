@@ -32,7 +32,7 @@ class WildrListActivity : AppCompatActivity(), WildrListener {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = WildrAdapter(app.animals.findAll(),this)
+        loadAnimals()
 
         registerRefreshCallback()
     }
@@ -61,6 +61,15 @@ class WildrListActivity : AppCompatActivity(), WildrListener {
     private fun registerRefreshCallback() {
         refreshIntentLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-            { binding.recyclerView.adapter?.notifyDataSetChanged() }
+            { loadAnimals() }
+    }
+
+    private fun loadAnimals() {
+        showAnimals(app.animals.findAll())
+    }
+
+    fun showAnimals (animals: List<WildrModel>) {
+        binding.recyclerView.adapter = WildrAdapter(animals, this)
+        binding.recyclerView.adapter?.notifyDataSetChanged()
     }
 }
