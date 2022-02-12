@@ -3,4 +3,6 @@
     <string name="button_addAnimal">Add Animal</string>
     <string name="hint_wildrTitle">Name</string>
     <string name="hint_wildrDescription">Sex </string>
+    <string name="menu_addAnimal">Add</string>
+    <string name="menu_cancelAnimal">Cancel</string>
 </resources>
