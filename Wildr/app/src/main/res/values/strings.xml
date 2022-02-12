@@ -5,6 +5,7 @@
     <string name="hint_wildrDescription">Sex </string>
     <string name="menu_addAnimal">Add</string>
     <string name="menu_cancelAnimal">Cancel</string>
+    <string name="menu_deleteAnimal">Delete</string>
     <string name="enter_animal_name"> Please enter an animal name </string>
     <string name="save_animal"> Save Animal </string>
     <string name="button_addImage"> Add Image </string>

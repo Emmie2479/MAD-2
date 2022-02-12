@@ -42,7 +42,19 @@ class WildrJSONStore(private val context: Context) : WildrStore {
 
 
     override fun update(animal: WildrModel) {
-        // todo
+        val animalsList = findAll() as ArrayList<WildrModel>
+        var foundAnimal: WildrModel? = animalsList.find { p -> p.id == animal.id }
+        if (foundAnimal != null) {
+            foundAnimal.name = animal.name
+            foundAnimal.sex = animal.sex
+            foundAnimal.image = animal.image
+        }
+        serialize()
+    }
+
+    override fun delete(animal: WildrModel) {
+        animals.remove(animal)
+        serialize()
     }
 
     private fun serialize() {

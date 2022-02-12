@@ -32,6 +32,10 @@ class WildrMemStore : WildrStore {
         }
     }
 
+    override fun delete(animal: WildrModel) {
+        animals.remove(animal)
+    }
+
     private fun logAll() {
         animals.forEach { i("$it") }
     }
