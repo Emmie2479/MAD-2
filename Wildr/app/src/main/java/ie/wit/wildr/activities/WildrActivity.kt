@@ -1,18 +1,25 @@
 package ie.wit.wildr.activities
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 import ie.wit.wildr.R
 import ie.wit.wildr.main.MainApp
 import ie.wit.wildr.models.WildrModel
 import ie.wit.wildr.databinding.ActivityWildrBinding
+import ie.wit.wildr.helpers.showImagePicker
 import timber.log.Timber.Forest.i
 
 class WildrActivity : AppCompatActivity() {
 
+    private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     private lateinit var binding: ActivityWildrBinding
     var animal = WildrModel()
     lateinit var app: MainApp
@@ -33,6 +40,12 @@ class WildrActivity : AppCompatActivity() {
             binding.animalName.setText(animal.name)
             binding.animalSex.setText(animal.sex)
             binding.btnAdd.setText(R.string.save_animal)
+            Picasso.get()
+                .load(animal.image)
+                .into(binding.animalImage)
+            if (animal.image != Uri.EMPTY) {
+                binding.chooseImage.setText(R.string.change_animal_image)
+            }
         }
 
         binding.btnAdd.setOnClickListener() {
@@ -51,6 +64,10 @@ class WildrActivity : AppCompatActivity() {
             setResult(RESULT_OK)
             finish()
         }
+
+        binding.chooseImage.setOnClickListener {
+            showImagePicker(imageIntentLauncher)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -63,5 +80,25 @@ class WildrActivity : AppCompatActivity() {
             R.id.item_cancel -> { finish() }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun registerImagePickerCallback() {
+        imageIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                when(result.resultCode){
+                    RESULT_OK -> {
+                        if (result.data != null) {
+                            i("Got Result ${result.data!!.data}")
+                            animal.image = result.data!!.data!!
+                            Picasso.get()
+                                .load(animal.image)
+                                .into(binding.animalImage)
+                            binding.chooseImage.setText(R.string.change_animal_image)
+                        } // end of if
+                    }
+                    RESULT_CANCELED -> { } else -> { }
+                }
+            }
     }
 }

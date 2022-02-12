@@ -27,6 +27,7 @@ class WildrMemStore : WildrStore {
         if (foundAnimal != null) {
             foundAnimal.name = animal.name
             foundAnimal.sex = animal.sex
+            foundAnimal.image = animal.image
             logAll()
         }
     }

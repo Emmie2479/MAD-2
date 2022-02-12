@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import ie.wit.wildr.R
@@ -17,6 +19,7 @@ class WildrListActivity : AppCompatActivity(), WildrListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityWildrListBinding
+    private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,11 +27,14 @@ class WildrListActivity : AppCompatActivity(), WildrListener {
         setContentView(binding.root)
         binding.toolbar.title = title
         setSupportActionBar(binding.toolbar)
+
         app = application as MainApp
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = WildrAdapter(app.animals.findAll(),this)
+
+        registerRefreshCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -40,7 +46,7 @@ class WildrListActivity : AppCompatActivity(), WildrListener {
         when (item.itemId) {
             R.id.item_add -> {
                 val launcherIntent = Intent(this, WildrActivity::class.java)
-                startActivityForResult(launcherIntent,0)
+                refreshIntentLauncher.launch(launcherIntent)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -49,6 +55,12 @@ class WildrListActivity : AppCompatActivity(), WildrListener {
     override fun onWildrClick(animal: WildrModel) {
         val launcherIntent = Intent(this, WildrActivity::class.java)
         launcherIntent.putExtra("animal_edit", animal)
-        startActivityForResult(launcherIntent,0)
+        refreshIntentLauncher.launch(launcherIntent)
+    }
+
+    private fun registerRefreshCallback() {
+        refreshIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { binding.recyclerView.adapter?.notifyDataSetChanged() }
     }
 }

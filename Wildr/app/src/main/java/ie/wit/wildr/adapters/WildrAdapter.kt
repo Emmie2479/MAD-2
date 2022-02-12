@@ -3,6 +3,7 @@ package ie.wit.wildr.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import ie.wit.wildr.databinding.CardWildrBinding
 import ie.wit.wildr.models.WildrModel
 
@@ -34,6 +35,7 @@ class WildrAdapter constructor(private var animals: List<WildrModel>,
         fun bind(animal: WildrModel, listener: WildrListener) {
             binding.animalName.text = animal.name
             binding.animalSex.text = animal.sex
+            Picasso.get().load(animal.image).resize(200,200).into(binding.imageIcon)
             binding.root.setOnClickListener { listener.onWildrClick(animal) }
         }
     }
