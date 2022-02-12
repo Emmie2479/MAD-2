@@ -19,6 +19,7 @@ class WildrActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        var edit = false
         binding = ActivityWildrBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -26,23 +27,29 @@ class WildrActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbarAdd)
 
         app = application as MainApp
-        i("Wildr Activity started...")
+
+        if (intent.hasExtra("animal_edit")) {
+            animal = intent.extras?.getParcelable("animal_edit")!!
+            binding.animalName.setText(animal.name)
+            binding.animalSex.setText(animal.sex)
+            binding.btnAdd.setText(R.string.save_animal)
+        }
+
         binding.btnAdd.setOnClickListener() {
             animal.name = binding.animalName.text.toString()
             animal.sex = binding.animalSex.text.toString()
-            if (animal.name.isNotEmpty()) {
-                app.animals.add(animal.copy())
-                i("add Button Pressed: ${animal}")
-                for (i in app.animals.indices) {
-                    i("Animal[$i]:${this.app.animals[i]}")
-                }
-                setResult(RESULT_OK)
-                finish()
-            }
-            else {
-                Snackbar.make(it,"Please enter a name", Snackbar.LENGTH_LONG)
+            if (animal.name.isEmpty()) {
+                Snackbar.make(it,R.string.enter_animal_name, Snackbar.LENGTH_LONG)
                     .show()
+            } else {
+                if (edit) {
+                    app.animals.update(animal.copy())
+                } else {
+                    app.animals.create(animal.copy())
+                }
             }
+            setResult(RESULT_OK)
+            finish()
         }
     }
 
@@ -53,9 +60,7 @@ class WildrActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.item_cancel -> {
-                finish()
-            }
+            R.id.item_cancel -> { finish() }
         }
         return super.onOptionsItemSelected(item)
     }

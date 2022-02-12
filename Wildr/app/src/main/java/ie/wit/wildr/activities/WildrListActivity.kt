@@ -8,10 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import ie.wit.wildr.R
 import ie.wit.wildr.adapters.WildrAdapter
+import ie.wit.wildr.adapters.WildrListener
 import ie.wit.wildr.databinding.ActivityWildrListBinding
 import ie.wit.wildr.main.MainApp
+import ie.wit.wildr.models.WildrModel
 
-class WildrListActivity : AppCompatActivity() {
+class WildrListActivity : AppCompatActivity(), WildrListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityWildrListBinding
@@ -26,7 +28,7 @@ class WildrListActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = WildrAdapter(app.animals.findAll())
+        binding.recyclerView.adapter = WildrAdapter(app.animals.findAll(),this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -42,5 +44,11 @@ class WildrListActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onWildrClick(animal: WildrModel) {
+        val launcherIntent = Intent(this, WildrActivity::class.java)
+        launcherIntent.putExtra("animal_edit", animal)
+        startActivityForResult(launcherIntent,0)
     }
 }
