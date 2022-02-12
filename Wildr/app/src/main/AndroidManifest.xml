@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Wildr">
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.WildrActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
