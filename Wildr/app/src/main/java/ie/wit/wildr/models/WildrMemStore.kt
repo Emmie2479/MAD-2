@@ -25,6 +25,7 @@ class WildrMemStore : WildrStore {
     override fun update(animal: WildrModel) {
         var foundAnimal: WildrModel? = animals.find { p -> p.id == animal.id }
         if (foundAnimal != null) {
+            foundAnimal.type = animal.type
             foundAnimal.name = animal.name
             foundAnimal.sex = animal.sex
             foundAnimal.image = animal.image

@@ -33,6 +33,7 @@ class WildrAdapter constructor(private var animals: List<WildrModel>,
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(animal: WildrModel, listener: WildrListener) {
+            binding.animalType.text = animal.type
             binding.animalName.text = animal.name
             binding.animalSex.text = animal.sex
             Picasso.get().load(animal.image).resize(200,200).into(binding.imageIcon)

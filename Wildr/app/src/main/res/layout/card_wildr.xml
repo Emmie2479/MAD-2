@@ -40,7 +40,7 @@
             tools:text="A Title" />
 
         <TextView
-            android:id="@+id/animalSex"
+            android:id="@+id/animalType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -49,6 +49,18 @@
             app:layout_constraintHorizontal_bias="0.052"
             app:layout_constraintStart_toEndOf="@+id/imageIcon"
             app:layout_constraintTop_toBottomOf="@id/animalName"
+            tools:text="A Description" />
+
+        <TextView
+            android:id="@+id/animalSex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textAlignment="viewStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.052"
+            app:layout_constraintTop_toBottomOf="@id/animalName"
+            app:layout_constraintStart_toEndOf="@+id/animalType"
             tools:text="A Description" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

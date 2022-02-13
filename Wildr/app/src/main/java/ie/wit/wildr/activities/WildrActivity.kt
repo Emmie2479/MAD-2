@@ -37,6 +37,7 @@ class WildrActivity : AppCompatActivity() {
 
         if (intent.hasExtra("animal_edit")) {
             animal = intent.extras?.getParcelable("animal_edit")!!
+            binding.animalType.setText(animal.type)
             binding.animalName.setText(animal.name)
             binding.animalSex.setText(animal.sex)
             binding.btnAdd.setText(R.string.save_animal)
@@ -49,6 +50,7 @@ class WildrActivity : AppCompatActivity() {
         }
 
         binding.btnAdd.setOnClickListener() {
+            animal.type = binding.animalType.text.toString()
             animal.name = binding.animalName.text.toString()
             animal.sex = binding.animalSex.text.toString()
             if (animal.name.isEmpty()) {
@@ -68,6 +70,8 @@ class WildrActivity : AppCompatActivity() {
         binding.chooseImage.setOnClickListener {
             showImagePicker(imageIntentLauncher)
         }
+
+        registerImagePickerCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
