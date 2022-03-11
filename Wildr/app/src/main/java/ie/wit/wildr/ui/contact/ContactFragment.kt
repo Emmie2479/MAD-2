@@ -1,4 +1,4 @@
-package ie.wit.wildr.ui.slideshow
+package ie.wit.wildr.ui.contact
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import ie.wit.wildr.databinding.FragmentInfoBinding
-//import ie.wit.wildr.databinding.FragmentInfoBinding
+import ie.wit.wildr.databinding.FragmentContactBinding
 
-class InfoFragment : Fragment() {
 
-    private var _binding: FragmentInfoBinding? = null
+class ContactFragment : Fragment() {
+
+    private var _binding: FragmentContactBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -23,15 +23,16 @@ class InfoFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val slideshowViewModel =
-            ViewModelProvider(this).get(InfoViewModel::class.java)
+        val contactViewModel =
+            ViewModelProvider(this).get(ContactViewModel::class.java)
 
-        _binding = FragmentInfoBinding.inflate(inflater, container, false)
+        _binding = FragmentContactBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textInfo
-        slideshowViewModel.text.observe(viewLifecycleOwner) {
+        val textView: TextView = binding.contactPhoneNumber
+        contactViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
+
         }
         return root
     }

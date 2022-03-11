@@ -9,7 +9,17 @@
         android:id="@+id/nav_home"
         android:name="ie.wit.wildr.ui.home.WelcomeFragment"
         android:label="@string/menu_welcome"
-        tools:layout="@layout/fragment_welcome" />
+        tools:layout="@layout/fragment_welcome" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_gallery"
+            app:destination="@id/nav_gallery" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_slideshow"
+            app:destination="@id/nav_slideshow" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_contact"
+            app:destination="@id/nav_contact" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_gallery"
@@ -22,4 +32,10 @@
         android:name="ie.wit.wildr.ui.slideshow.InfoFragment"
         android:label="@string/menu_info"
         tools:layout="@layout/fragment_info" />
+
+    <fragment
+        android:id="@+id/nav_contact"
+        android:name="ie.wit.wildr.ui.contact.ContactFragment"
+        android:label="@string/menu_contact"
+        tools:layout="@layout/fragment_contact" />
 </navigation>

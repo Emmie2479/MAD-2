@@ -1,13 +1,13 @@
-package ie.wit.wildr.ui.slideshow
+package ie.wit.wildr.ui.contact
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class InfoViewModel : ViewModel() {
+class ContactViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        //value = "This is slideshow Fragment\n testing"
+        // value = "This is slideshow Fragment"
     }
     val text: LiveData<String> = _text
 }

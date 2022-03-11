@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
@@ -14,7 +15,13 @@
             android:title="@string/menu_animalgallery" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_baseline_add_box_24"
             android:title="@string/menu_info" />
+
+        <item
+            android:id="@+id/nav_contact"
+            android:icon="@drawable/ic_baseline_email_24"
+            android:title="@string/menu_contact" />
     </group>
+
 </menu>

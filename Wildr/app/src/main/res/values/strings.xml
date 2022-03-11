@@ -6,8 +6,12 @@
     <string name="nav_header_subtitle">wildrapp@wildworld.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-
     <string name="menu_welcome">Welcome</string>
     <string name="menu_animalgallery">Gallery</string>
     <string name="menu_info">Info</string>
+    <string name="menu_contact">Contact</string>
+    <string name="address_waterford_institute_of_technology_cork_road_waterford">Address: Waterford Institute of Technology,
+        Cork Road,
+        Waterford</string>
+    <string name="email_wildrapp_wildworld_ie">Email: WildrApp@wildworld.ie</string>
 </resources>
