@@ -1,17 +1,10 @@
 package ie.wit.wildr.models
 
 import android.os.Parcelable
-import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-
 @Parcelize
-data class WildrModel(
-      var _id: String = "N/A",
-      @SerializedName("paymenttype")
-      val paymentmethod: String = "N/A",
-      val message: String = "n/a",
-      val amount: Int = 0) : Parcelable
-
-
-
+data class WildrModel(var id: Long = 0,
+                      var type: String = "",
+                      var name: String = "",
+                      var sex: String = "") : Parcelable

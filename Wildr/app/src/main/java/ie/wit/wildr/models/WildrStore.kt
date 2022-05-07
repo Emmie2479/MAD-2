@@ -1,12 +1,7 @@
 package ie.wit.wildr.models
 
-import androidx.lifecycle.MutableLiveData
-
 interface WildrStore {
-    fun findAll(donationsList:
-                MutableLiveData<List<WildrModel>>)
-    fun findById(id: String) : WildrModel?
-    fun create(donation: WildrModel)
-    fun delete(id: String)
+    fun findAll() : List<WildrModel>
+    fun findById(id: Long) : WildrModel?
+    fun create(animal: WildrModel)
 }
-

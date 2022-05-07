@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="animalvm"
+            type="ie.wit.wildr.ui.detail.DetailViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.detail.DetailFragment">
+
+        <TextView
+            android:id="@+id/labelType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="72dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/type"
+            android:textAlignment="textEnd"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/editType"
+            app:layout_constraintHorizontal_bias="0.125"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/labelName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/name"
+            android:textAlignment="textEnd"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/editName"
+            app:layout_constraintHorizontal_bias="0.111"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/labelType" />
+
+        <TextView
+            android:id="@+id/labelSex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/sex"
+            android:textAlignment="textEnd"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/editSex"
+            app:layout_constraintHorizontal_bias="0.183"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/labelName" />
+
+        <EditText
+            android:id="@+id/editType"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="4dp"
+            android:ems="10"
+            android:text="@{animalvm.observableAnimal.type}"
+            android:inputType="number"
+            android:textAlignment="viewStart"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/editName"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="4dp"
+            android:text="@{animalvm.observableAnimal.name}"
+            android:textAlignment="viewStart"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editType" />
+
+        <EditText
+            android:id="@+id/editSex"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="4dp"
+            android:ems="10"
+            android:text="@{animalvm.observableAnimal.sex}"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editName" />
+
+        <Button
+            android:id="@+id/editExerciseButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/white"
+            android:text="Edit"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/deleteExerciseButton"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/deleteExerciseButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/white"
+            android:text="Delete"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/editExerciseButton" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
