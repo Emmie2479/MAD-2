@@ -7,12 +7,12 @@ import timber.log.Timber
 
 class MainApp : Application() {
 
-    //lateinit var wildrStore: WildrStore
+    //lateinit var animalsStore: WildrStore
 
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
-        //  wildrStore = WildrManager()
+        //  animalsStore = WildrManager()
         Timber.i("Wildr Application Started")
     }
 }

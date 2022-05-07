@@ -8,16 +8,17 @@ import ie.wit.wildr.models.WildrModel
 
 class RegistrationViewModel : ViewModel() {
 
-    private val animalsCatalogue = MutableLiveData<List<WildrModel>>()
+    private val status = MutableLiveData<Boolean>()
 
-    val observableAnimalsCatalogue: LiveData<List<WildrModel>>
-        get() = animalsCatalogue
+    val observableStatus: LiveData<Boolean>
+        get() = status
 
-    init {
-        load()
-    }
-
-    fun load() {
-        animalsCatalogue.value = WildrManager.findAll()
+    fun addAnimal(animal: WildrModel) {
+        status.value = try {
+            WildrManager.create(animal)
+            true
+        } catch (e: IllegalArgumentException) {
+            false
+        }
     }
 }

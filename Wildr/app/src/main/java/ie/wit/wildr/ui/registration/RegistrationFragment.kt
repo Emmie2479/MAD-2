@@ -2,62 +2,75 @@ package ie.wit.wildr.ui.registration
 
 import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
 import android.widget.Toast
+import androidx.databinding.ObservableInt
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import ie.wit.wildr.R
 import ie.wit.wildr.databinding.FragmentRegistrationBinding
-import ie.wit.wildr.main.MainApp
 import ie.wit.wildr.models.WildrModel
+import ie.wit.wildr.ui.auth.LoggedInViewModel
+import ie.wit.wildr.ui.catalogue.CatalogueViewModel
+import timber.log.Timber
 
 class RegistrationFragment : Fragment() {
 
-    lateinit var app: MainApp
     private var _fragBinding: FragmentRegistrationBinding? = null
+    // This property is only valid between onCreateView and onDestroyView.
     private val fragBinding get() = _fragBinding!!
-    //lateinit var navController: NavController
+    private lateinit var registrationViewModel: RegistrationViewModel
+    private val catalogueViewModel: CatalogueViewModel by activityViewModels()
+    private val loggedInViewModel : LoggedInViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        app = activity?.application as MainApp
         setHasOptionsMenu(true)
-        //navController = Navigation.findNavController(activity!!, R.id.nav_host_fragment)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         _fragBinding = FragmentRegistrationBinding.inflate(inflater, container, false)
         val root = fragBinding.root
-        activity?.title = getString(R.string.action_registration)
+
+        registrationViewModel = ViewModelProvider(this).get(RegistrationViewModel::class.java)
+        registrationViewModel.observableStatus.observe(viewLifecycleOwner, Observer {
+                status -> status?.let { render(status) }
+        })
 
         setButtonListener(fragBinding)
+
         return root;
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            RegistrationFragment().apply {
-                arguments = Bundle().apply {}
+    private fun render(status: Boolean) {
+        when (status) {
+            true -> {
+                view?.let {
+                    //Uncomment this if you want to immediately return to Report
+                    //findNavController().popBackStack()
+                }
             }
+            false -> Toast.makeText(context,getString(R.string.wildrError),Toast.LENGTH_LONG).show()
+        }
     }
 
     fun setButtonListener(layout: FragmentRegistrationBinding) {
         layout.btnAdd.setOnClickListener {
-            /*val amount = if (layout.paymentAmount.text.isNotEmpty())
+            /*(val amount = if (layout.paymentAmount.text.isNotEmpty())
                 layout.paymentAmount.text.toString().toInt() else layout.amountPicker.value
             if(totalDonated >= layout.progressBar.max)
-                Toast.makeText(context,"Donate Amount Exceeded!",Toast.LENGTH_LONG).show()
+                Toast.makeText(context,"Donate Amount Exceeded!", Toast.LENGTH_LONG).show()
             else {
                 val paymentmethod = if(layout.paymentMethod.checkedRadioButtonId == R.id.Direct) "Direct" else "Paypal"
                 totalDonated += amount
-                layout.totalSoFar.text = "$$totalDonated"
+                layout.totalSoFar.text = String.format(getString(R.string.totalSoFar),totalDonated)
                 layout.progressBar.progress = totalDonated
-                app.donationsStore.create(DonationModel(paymentmethod = paymentmethod,amount = amount))
+                donateViewModel.addDonation(DonationModel(paymentmethod = paymentmethod,amount = amount,
+                    email = loggedInViewModel.liveFirebaseUser.value?.email!!))
             }*/
         }
     }

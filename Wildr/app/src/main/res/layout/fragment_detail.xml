@@ -100,19 +100,19 @@
             app:layout_constraintTop_toBottomOf="@+id/editName" />
 
         <Button
-            android:id="@+id/editExerciseButton"
+            android:id="@+id/editAnimalButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark"
             android:textColor="@color/white"
             android:text="Edit"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/deleteExerciseButton"
+            app:layout_constraintEnd_toStartOf="@+id/deleteAnimalButton"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/deleteExerciseButton"
+            android:id="@+id/deleteAnimalButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark"
@@ -120,7 +120,7 @@
             android:text="Delete"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/editExerciseButton" />
+            app:layout_constraintStart_toEndOf="@+id/editAnimalButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

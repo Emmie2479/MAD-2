@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "968800886048",
+    "project_id": "wildr-64f18",
+    "storage_bucket": "wildr-64f18.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:968800886048:android:8ec4ccd5817990d7c50b45",
+        "android_client_info": {
+          "package_name": "ie.wit.wildr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "968800886048-3sje348rnrbkud1umsjc5caajl3uuves.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzRh60ySdSAZCGi4NSefwM1d3celDujmQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "968800886048-3sje348rnrbkud1umsjc5caajl3uuves.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
