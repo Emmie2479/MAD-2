@@ -8,6 +8,8 @@ import ie.wit.wildr.firebase.FirebaseDBManager
 import ie.wit.wildr.models.WildrModel
 import timber.log.Timber
 import java.lang.Exception
+import java.util.*
+import kotlin.collections.ArrayList
 
 class CatalogueViewModel : ViewModel() {
 
@@ -19,11 +21,15 @@ class CatalogueViewModel : ViewModel() {
 
     var liveFirebaseUser = MutableLiveData<FirebaseUser>()
 
+    var readOnly = MutableLiveData(false)
+
+    var searchResults = ArrayList<WildrModel>()
+
     init { load() }
 
     fun load() {
         try {
-            //WildrManager.findAll(liveFirebaseUser.value?.email!!, animalsCatalogue)
+            readOnly.value = false
             FirebaseDBManager.findAll(liveFirebaseUser.value?.uid!!,
                 animalsCatalogue)
             Timber.i("Catalogue Load Success : ${animalsCatalogue.value.toString()}")
@@ -33,14 +39,24 @@ class CatalogueViewModel : ViewModel() {
         }
     }
 
-    fun delete(userid: String, id: String) {
+    fun loadAll() {
         try {
-            //WildrManager.delete(userid,id)
-            FirebaseDBManager.delete(userid,id)
-            Timber.i("Animal Delete Success")
+            readOnly.value = true
+            FirebaseDBManager.findAll(animalsCatalogue)
+            Timber.i("Catalogue LoadAll Success : ${animalsCatalogue.value.toString()}")
         }
         catch (e: Exception) {
-            Timber.i("Animal Delete Error : $e.message")
+            Timber.i("Catalogue LoadAll Error : $e.message")
+        }
+    }
+
+    fun delete(userid: String, id: String) {
+        try {
+            FirebaseDBManager.delete(userid,id)
+            Timber.i("Catalogue Delete Success")
+        }
+        catch (e: Exception) {
+            Timber.i("Catalogue Delete Error : $e.message")
         }
     }
 }

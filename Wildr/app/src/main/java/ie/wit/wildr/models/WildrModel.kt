@@ -12,6 +12,7 @@ data class WildrModel(
     val type: String = "N/A",
     val name: String = "N/A",
     val sex: String = "N/A",
+    var profilepic: String = "",
     var email: String? = "joe@bloggs.com")
     : Parcelable
 {
@@ -22,6 +23,7 @@ data class WildrModel(
             "type" to type,
             "name" to name,
             "sex" to sex,
+            "profilepic" to profilepic,
             "email" to email
         )
     }

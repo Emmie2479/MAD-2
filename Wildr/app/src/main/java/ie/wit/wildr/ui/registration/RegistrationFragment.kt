@@ -60,19 +60,7 @@ class RegistrationFragment : Fragment() {
 
     fun setButtonListener(layout: FragmentRegistrationBinding) {
         layout.btnAdd.setOnClickListener {
-            /*(val amount = if (layout.paymentAmount.text.isNotEmpty())
-                layout.paymentAmount.text.toString().toInt() else layout.amountPicker.value
-            if(totalDonated >= layout.progressBar.max)
-                Toast.makeText(context,"Donate Amount Exceeded!", Toast.LENGTH_LONG).show()
-            else {
-                val paymentmethod = if(layout.paymentMethod.checkedRadioButtonId == R.id.Direct) "Direct" else "Paypal"
-                totalDonated += amount
-                layout.totalSoFar.text = String.format(getString(R.string.totalSoFar),totalDonated)
-                layout.progressBar.progress = totalDonated
-                donateViewModel.addDonation(loggedInViewModel.liveFirebaseUser,
-                            DonationModel(paymentmethod = paymentmethod,amount = amount,
-                              email = loggedInViewModel.liveFirebaseUser.value?.email!!))
-            }*/
+
         }
     }
 

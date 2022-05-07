@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "968800886048",
+    "firebase_url": "https://wildr-64f18-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "wildr-64f18",
     "storage_bucket": "wildr-64f18.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "968800886048-qse1b95uloqj860689kpcu1e345h778v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ie.wit.wildr",
+            "certificate_hash": "7ee0fe760c7d5ec42e282bac469c724a3132ac8b"
+          }
+        },
         {
           "client_id": "968800886048-3sje348rnrbkud1umsjc5caajl3uuves.apps.googleusercontent.com",
           "client_type": 3
