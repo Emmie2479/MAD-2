@@ -24,8 +24,8 @@
     <string name="action_donate">Donate</string>
     <string name="action_report">Report</string>
 
-    <string name="animalsNotFound">No Donations Yet…\nGo Make a Donation!</string>
-    <string name="wildrError">Error : Couldn\'t Make a Donation…</string>
+    <string name="animalsNotFound">No Animals Yet…\nGo Make register an animal!</string>
+    <string name="wildrError">Error : Couldn\'t Make a entry…</string>
     <string name="type">Type :</string>
     <string name="name">Name :</string>
     <string name="sex">Sex :</string>
@@ -34,7 +34,7 @@
     <string name="action_send">Send</string>
     <string name="group_communicate">Communicate</string>
 
-    <string name="messageLoading">Please Wait while the animals are Loading...</string>
+    <string name="messageLoading">Please Wait while the catalogue is Loading...</string>
 
     <!-- START Firebase Resources-->
 
