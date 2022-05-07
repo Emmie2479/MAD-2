@@ -3,7 +3,8 @@ package ie.wit.wildr.ui.registration
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ie.wit.wildr.models.WildrManager
+import com.google.firebase.auth.FirebaseUser
+import ie.wit.wildr.firebase.FirebaseDBManager
 import ie.wit.wildr.models.WildrModel
 
 class RegistrationViewModel : ViewModel() {
@@ -13,9 +14,11 @@ class RegistrationViewModel : ViewModel() {
     val observableStatus: LiveData<Boolean>
         get() = status
 
-    fun addAnimal(animal: WildrModel) {
+    fun addAnimal(firebaseUser: MutableLiveData<FirebaseUser>,
+                    animal: WildrModel) {
         status.value = try {
-            WildrManager.create(animal)
+            //WIldrManager.create(animal)
+            FirebaseDBManager.create(firebaseUser,animal)
             true
         } catch (e: IllegalArgumentException) {
             false

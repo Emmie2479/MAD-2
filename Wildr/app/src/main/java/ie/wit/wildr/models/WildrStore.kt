@@ -1,15 +1,17 @@
 package ie.wit.wildr.models
 
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.auth.FirebaseUser
 
 interface WildrStore {
     fun findAll(animalsCatalogue:
                 MutableLiveData<List<WildrModel>>)
-    fun findAll(email:String,
-                animalsCatalogue: MutableLiveData<List<WildrModel>>)
-    fun findById(email:String, id: String,
+    fun findAll(userid:String,
+                animalsCatalogue:
+                MutableLiveData<List<WildrModel>>)
+    fun findById(userid:String, animalid: String,
                  animal: MutableLiveData<WildrModel>)
-    fun create(animal: WildrModel)
-    fun delete(email:String,id: String)
-    fun update(email:String,id: String,animal: WildrModel)
+    fun create(firebaseUser: MutableLiveData<FirebaseUser>, animal: WildrModel)
+    fun delete(userid:String, animalid: String)
+    fun update(userid:String, animalid: String, animal: WildrModel)
 }

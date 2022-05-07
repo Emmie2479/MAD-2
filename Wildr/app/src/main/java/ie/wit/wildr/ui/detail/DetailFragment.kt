@@ -45,7 +45,7 @@ class DetailFragment : Fragment() {
 
         fragBinding.deleteAnimalButton.setOnClickListener {
             catalogueViewModel.delete(loggedInViewModel.liveFirebaseUser.value?.email!!,
-                detailViewModel.observableAnimal.value?._id!!)
+                detailViewModel.observableAnimal.value?.uid!!)
             findNavController().navigateUp()
         }
         return root

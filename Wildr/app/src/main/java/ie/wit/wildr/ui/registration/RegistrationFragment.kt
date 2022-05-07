@@ -69,8 +69,9 @@ class RegistrationFragment : Fragment() {
                 totalDonated += amount
                 layout.totalSoFar.text = String.format(getString(R.string.totalSoFar),totalDonated)
                 layout.progressBar.progress = totalDonated
-                donateViewModel.addDonation(DonationModel(paymentmethod = paymentmethod,amount = amount,
-                    email = loggedInViewModel.liveFirebaseUser.value?.email!!))
+                donateViewModel.addDonation(loggedInViewModel.liveFirebaseUser,
+                            DonationModel(paymentmethod = paymentmethod,amount = amount,
+                              email = loggedInViewModel.liveFirebaseUser.value?.email!!))
             }*/
         }
     }

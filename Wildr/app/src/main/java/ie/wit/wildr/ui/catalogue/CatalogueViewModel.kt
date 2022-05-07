@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseUser
-import ie.wit.wildr.models.WildrManager
+import ie.wit.wildr.firebase.FirebaseDBManager
 import ie.wit.wildr.models.WildrModel
 import timber.log.Timber
 import java.lang.Exception
@@ -23,21 +23,24 @@ class CatalogueViewModel : ViewModel() {
 
     fun load() {
         try {
-            WildrManager.findAll(liveFirebaseUser.value?.email!!, animalsCatalogue)
+            //WildrManager.findAll(liveFirebaseUser.value?.email!!, animalsCatalogue)
+            FirebaseDBManager.findAll(liveFirebaseUser.value?.uid!!,
+                animalsCatalogue)
             Timber.i("Catalogue Load Success : ${animalsCatalogue.value.toString()}")
         }
         catch (e: Exception) {
-            Timber.i("catalogue Load Error : $e.message")
+            Timber.i("Catalogue Load Error : $e.message")
         }
     }
 
-    fun delete(email: String, id: String) {
+    fun delete(userid: String, id: String) {
         try {
-            WildrManager.delete(email,id)
-            Timber.i("Catalogue Delete Success")
+            //WildrManager.delete(userid,id)
+            FirebaseDBManager.delete(userid,id)
+            Timber.i("Animal Delete Success")
         }
         catch (e: Exception) {
-            Timber.i("Catalogue Delete Error : $e.message")
+            Timber.i("Animal Delete Error : $e.message")
         }
     }
 }

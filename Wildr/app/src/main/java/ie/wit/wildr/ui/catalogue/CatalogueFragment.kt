@@ -49,7 +49,7 @@ class CatalogueFragment : Fragment(), WildrClickListener {
             val action = CatalogueFragmentDirections.actionCatalogueFragmentToRegistrationFragment()
             findNavController().navigate(action)
         }
-        showLoader(loader,"Downloading Animals")
+        showLoader(loader,"Downloading Catalogue")
         catalogueViewModel.observableAnimalsCatalogue.observe(viewLifecycleOwner, Observer {
                 animals ->
             animals?.let {
@@ -66,8 +66,8 @@ class CatalogueFragment : Fragment(), WildrClickListener {
                 showLoader(loader,"Deleting Animal")
                 val adapter = fragBinding.recyclerView.adapter as WildrAdapter
                 adapter.removeAt(viewHolder.adapterPosition)
-                catalogueViewModel.delete(catalogueViewModel.liveFirebaseUser.value?.email!!,
-                    (viewHolder.itemView.tag as WildrModel)._id)
+                catalogueViewModel.delete(catalogueViewModel.liveFirebaseUser.value?.uid!!,
+                    (viewHolder.itemView.tag as WildrModel).uid!!)
                 hideLoader(loader)
             }
         }
@@ -109,14 +109,14 @@ class CatalogueFragment : Fragment(), WildrClickListener {
     }
 
     override fun onWildrClick(animal: WildrModel) {
-        val action = CatalogueFragmentDirections.actionCatalogueFragmentToDetailFragment(animal._id)
+        val action = CatalogueFragmentDirections.actionCatalogueFragmentToDetailFragment(animal.uid!!)
         findNavController().navigate(action)
     }
 
     private fun setSwipeRefresh() {
         fragBinding.swiperefresh.setOnRefreshListener {
             fragBinding.swiperefresh.isRefreshing = true
-            showLoader(loader,"Downloading Animals")
+            showLoader(loader,"Downloading Catalogue")
             catalogueViewModel.load()
         }
     }
@@ -128,7 +128,7 @@ class CatalogueFragment : Fragment(), WildrClickListener {
 
     override fun onResume() {
         super.onResume()
-        showLoader(loader,"Downloading Animals")
+        showLoader(loader,"Downloading Donations")
         loggedInViewModel.liveFirebaseUser.observe(viewLifecycleOwner, Observer { firebaseUser ->
             if (firebaseUser != null) {
                 catalogueViewModel.liveFirebaseUser.value = firebaseUser

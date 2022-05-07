@@ -1,4 +1,4 @@
-package ie.wit.wildr.models
+package ie.wit.wildr.firebase
 
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseUser
@@ -6,6 +6,7 @@ import com.google.firebase.database.*
 import ie.wit.wildr.models.WildrModel
 import ie.wit.wildr.models.WildrStore
 import timber.log.Timber
+
 
 object FirebaseDBManager : WildrStore {
 
@@ -40,7 +41,7 @@ object FirebaseDBManager : WildrStore {
 
     override fun findById(userid: String, animalid: String, animal: MutableLiveData<WildrModel>) {
 
-        database.child("user-animals").child(userid)
+        database.child("user-aniamls").child(userid)
             .child(animalid).get().addOnSuccessListener {
                 animal.value = it.getValue(WildrModel::class.java)
                 Timber.i("firebase Got value ${it.value}")
@@ -82,7 +83,7 @@ object FirebaseDBManager : WildrStore {
         val animalValues = animal.toMap()
 
         val childUpdate : MutableMap<String, Any?> = HashMap()
-        childUpdate["animals/$animalid"] = animalValues
+        childUpdate["donations/$animalid"] = animalValues
         childUpdate["user-animals/$userid/$animalid"] = animalValues
 
         database.updateChildren(childUpdate)
