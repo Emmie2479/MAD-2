@@ -1,4 +1,4 @@
-package ie.wit.wildr.ui.catalogue
+package ie.wit.wildr.ui.list
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -16,23 +16,22 @@ import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ie.wit.donationx.utils.SwipeToEditCallback
 import ie.wit.wildr.R
-import ie.wit.wildr.adapters.WildrAdapter
-import ie.wit.wildr.adapters.WildrClickListener
-import ie.wit.wildr.databinding.FragmentCatalogueBinding
-import ie.wit.wildr.models.WildrModel
+import ie.wit.wildr.adapters.AnimalAdapter
+import ie.wit.wildr.adapters.AnimalClickListener
+import ie.wit.wildr.databinding.FragmentListBinding
+import ie.wit.wildr.models.AnimalModel
 import ie.wit.wildr.ui.auth.LoggedInViewModel
 import ie.wit.wildr.utils.*
 import timber.log.Timber
 
 
-class CatalogueFragment : Fragment(), WildrClickListener {
+class ListFragment : Fragment(), AnimalClickListener {
 
-    private var _fragBinding: FragmentCatalogueBinding? = null
+    private var _fragBinding: FragmentListBinding? = null
     private val fragBinding get() = _fragBinding!!
     lateinit var loader : AlertDialog
-    private val catalogueViewModel: CatalogueViewModel by activityViewModels()
+    private val listViewModel: ListViewModel by activityViewModels()
     private val loggedInViewModel : LoggedInViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,19 +43,19 @@ class CatalogueFragment : Fragment(), WildrClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _fragBinding = FragmentCatalogueBinding.inflate(inflater, container, false)
+        _fragBinding = FragmentListBinding.inflate(inflater, container, false)
         val root = fragBinding.root
         loader = createLoader(requireActivity())
 
         fragBinding.recyclerView.layoutManager = LinearLayoutManager(activity)
         fragBinding.fab.setOnClickListener {
-            val action = CatalogueFragmentDirections.actionCatalogueFragmentToRegistrationFragment()
+            val action = ListFragmentDirections.actionListFragmentToFormFragment()
             findNavController().navigate(action)
         }
         showLoader(loader, "Downloading Animals")
-        catalogueViewModel.observableAnimalsCatalogue.observe(viewLifecycleOwner, Observer { animals ->
+        listViewModel.observableAnimalsList.observe(viewLifecycleOwner, Observer { animals ->
             animals?.let {
-                render(animals as ArrayList<WildrModel>)
+                render(animals as ArrayList<AnimalModel>)
                 hideLoader(loader)
                 checkSwipeRefresh()
             }
@@ -66,12 +65,12 @@ class CatalogueFragment : Fragment(), WildrClickListener {
 
         val swipeDeleteHandler = object : SwipeToDeleteCallback(requireContext()) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                showLoader(loader, "Deleting Animal")
-                val adapter = fragBinding.recyclerView.adapter as WildrAdapter
+                showLoader(loader, "Deleting Exercise")
+                val adapter = fragBinding.recyclerView.adapter as AnimalAdapter
                 adapter.removeAt(viewHolder.adapterPosition)
-                catalogueViewModel.delete(
-                    catalogueViewModel.liveFirebaseUser.value?.uid!!,
-                    (viewHolder.itemView.tag as WildrModel).uid!!
+                listViewModel.delete(
+                    listViewModel.liveFirebaseUser.value?.uid!!,
+                    (viewHolder.itemView.tag as AnimalModel).uid!!
                 )
                 hideLoader(loader)
             }
@@ -81,7 +80,7 @@ class CatalogueFragment : Fragment(), WildrClickListener {
 
         val swipeEditHandler = object : SwipeToEditCallback(requireContext()) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                onWildrClick(viewHolder.itemView.tag as WildrModel)
+                onAnimalClick(viewHolder.itemView.tag as AnimalModel)
             }
         }
         val itemTouchEditHelper = ItemTouchHelper(swipeEditHandler)
@@ -91,16 +90,16 @@ class CatalogueFragment : Fragment(), WildrClickListener {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_catalogue, menu)
+        inflater.inflate(R.menu.menu_list, menu)
 
         val item = menu.findItem(R.id.toggleAnimals) as MenuItem
-        item.setActionView(R.layout.togglebutton_layout)
+        item.setActionView(R.layout.toggle_button)
         val toggleAnimals: SwitchCompat = item.actionView.findViewById(R.id.toggleButton)
         toggleAnimals.isChecked = false
 
         toggleAnimals.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) catalogueViewModel.loadAll()
-            else catalogueViewModel.load()
+            if (isChecked) listViewModel.loadAll()
+            else listViewModel.load()
         }
 
         super.onCreateOptionsMenu(menu, inflater)
@@ -113,10 +112,10 @@ class CatalogueFragment : Fragment(), WildrClickListener {
         ) || super.onOptionsItemSelected(item)
     }
 
-    private fun render(animalsCatalogue: ArrayList<WildrModel>) {
-        fragBinding.recyclerView.adapter = WildrAdapter(animalsCatalogue, this,
-            catalogueViewModel.readOnly.value!!)
-        if (animalsCatalogue.isEmpty()) {
+    private fun render(animalsList: ArrayList<AnimalModel>) {
+        fragBinding.recyclerView.adapter = AnimalAdapter(animalsList, this,
+            listViewModel.readOnly.value!!)
+        if (animalsList.isEmpty()) {
             fragBinding.recyclerView.visibility = View.GONE
             fragBinding.animalsNotFound.visibility = View.VISIBLE
         } else {
@@ -125,10 +124,10 @@ class CatalogueFragment : Fragment(), WildrClickListener {
         }
     }
 
-    override fun onWildrClick(animal: WildrModel) {
-        val action = CatalogueFragmentDirections.actionCatalogueFragmentToDetailFragment(animal.uid!!)
+    override fun onAnimalClick(animal: AnimalModel) {
+        val action = ListFragmentDirections.actionListFragmentToDetailFragment(animal.uid!!)
 
-        if(!catalogueViewModel.readOnly.value!!)
+        if(!listViewModel.readOnly.value!!)
             findNavController().navigate(action)
     }
 
@@ -136,10 +135,10 @@ class CatalogueFragment : Fragment(), WildrClickListener {
         fragBinding.swiperefresh.setOnRefreshListener {
             fragBinding.swiperefresh.isRefreshing = true
             showLoader(loader, "Downloading Animals")
-            if(catalogueViewModel.readOnly.value!!)
-                catalogueViewModel.loadAll()
+            if(listViewModel.readOnly.value!!)
+                listViewModel.loadAll()
             else
-                catalogueViewModel.load()
+                listViewModel.load()
         }
     }
 
@@ -153,8 +152,8 @@ class CatalogueFragment : Fragment(), WildrClickListener {
         showLoader(loader, "Downloading Animals")
         loggedInViewModel.liveFirebaseUser.observe(viewLifecycleOwner, Observer { firebaseUser ->
             if (firebaseUser != null) {
-                catalogueViewModel.liveFirebaseUser.value = firebaseUser
-                catalogueViewModel.load()
+                listViewModel.liveFirebaseUser.value = firebaseUser
+                listViewModel.load()
             }
         })
     }

@@ -1,4 +1,4 @@
-package ie.wit.donationx.utils
+package ie.wit.wildr.utils
 
 import android.content.Context
 import android.graphics.*
@@ -7,7 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import ie.wit.wildr.R
-import ie.wit.wildr.adapters.WildrAdapter
+import ie.wit.wildr.adapters.AnimalAdapter
 
 abstract class SwipeToEditCallback(context: Context) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
 
@@ -25,7 +25,7 @@ abstract class SwipeToEditCallback(context: Context) : ItemTouchHelper.SimpleCal
          * if (viewHolder?.itemViewType == YourAdapter.SOME_TYPE) return 0
          * if (viewHolder?.adapterPosition == 0) return 0
          */
-        if ((viewHolder as WildrAdapter.MainHolder).readOnlyRow) return 0
+        if ((viewHolder as AnimalAdapter.MainHolder).readOnlyRow) return 0
         return super.getMovementFlags(recyclerView, viewHolder)
     }
 

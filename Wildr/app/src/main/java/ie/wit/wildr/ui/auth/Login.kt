@@ -33,11 +33,11 @@ class Login : AppCompatActivity() {
 
         loginBinding.emailSignInButton.setOnClickListener {
             signIn(loginBinding.fieldEmail.text.toString(),
-                loginBinding.fieldPassword.text.toString())
+                    loginBinding.fieldPassword.text.toString())
         }
         loginBinding.emailCreateAccountButton.setOnClickListener {
             createAccount(loginBinding.fieldEmail.text.toString(),
-                loginBinding.fieldPassword.text.toString())
+                    loginBinding.fieldPassword.text.toString())
         }
 
         loginBinding.googleSignInButton.setSize(SignInButton.SIZE_WIDE)
@@ -55,6 +55,7 @@ class Login : AppCompatActivity() {
         startForResult.launch(signInIntent)
     }
 
+
     public override fun onStart() {
         super.onStart()
 
@@ -65,7 +66,7 @@ class Login : AppCompatActivity() {
             startActivity(Intent(this, Home::class.java)) })
 
         loginRegisterViewModel.firebaseAuthManager.errorStatus.observe(this, Observer
-        { status -> checkStatus(status) })
+            { status -> checkStatus(status) })
 
         setupGoogleSignInCallback()
     }
@@ -84,9 +85,9 @@ class Login : AppCompatActivity() {
                             // Google Sign In failed
                             Timber.i( "Google sign in failed $e")
                             Snackbar.make(loginBinding.loginLayout, "Authentication Failed.",
-                                Snackbar.LENGTH_SHORT).show()
+                                                                    Snackbar.LENGTH_SHORT).show()
                         }
-                        Timber.i("DonationX Google Result $result.data")
+                        Timber.i("Wildr Google Result $result.data")
                     }
                     RESULT_CANCELED -> {
 
@@ -117,10 +118,10 @@ class Login : AppCompatActivity() {
     }
 
     private fun checkStatus(error:Boolean) {
-        if (error)
-            Toast.makeText(this,
-                getString(R.string.auth_failed),
-                Toast.LENGTH_LONG).show()
+            if (error)
+                Toast.makeText(this,
+                        getString(R.string.auth_failed),
+                        Toast.LENGTH_LONG).show()
     }
 
     private fun validateForm(): Boolean {

@@ -55,7 +55,7 @@ class Home : AppCompatActivity() {
         // menu should be considered as top level destinations.
 
         appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.registrationFragment, R.id.catalogueFragment), drawerLayout)
+            R.id.formFragment, R.id.listFragment, R.id.welcomeFragment, R.id.infoFragment, R.id.galleryFragment, R.id.contactFragment), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         val navView = homeBinding.navView
@@ -106,10 +106,10 @@ class Home : AppCompatActivity() {
                 }
                 else
                 {
-                    Timber.i("DX Loading Existing Default imageUri")
+                    Timber.i("Wildr Loading Existing Default imageUri")
                     FirebaseImageManager.updateDefaultImage(
                         currentUser.uid,
-                        R.drawable.ic_launcher_logo,
+                        R.drawable.logo,
                         navHeaderBinding.navHeaderImage)
                 }
             }
@@ -145,7 +145,7 @@ class Home : AppCompatActivity() {
                 when(result.resultCode){
                     RESULT_OK -> {
                         if (result.data != null) {
-                            Timber.i("DX registerPickerCallback() ${readImageUri(result.resultCode, result.data).toString()}")
+                            Timber.i("Wildr registerPickerCallback() ${readImageUri(result.resultCode, result.data).toString()}")
                             FirebaseImageManager
                                 .updateUserImage(loggedInViewModel.liveFirebaseUser.value!!.uid,
                                     readImageUri(result.resultCode, result.data),

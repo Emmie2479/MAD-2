@@ -2,25 +2,47 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
-
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/registrationFragment"
-            android:icon="@drawable/ic_menu_registration"
-            android:title="@string/action_registration" />
+            android:id="@+id/formFragment"
+            android:icon="@drawable/ic_menu_form"
+            android:title="@string/action_form" />
         <item
-            android:id="@+id/catalogueFragment"
-            android:icon="@drawable/ic_menu_catalogue"
-            android:title="@string/action_catalogue" />
+            android:id="@+id/listFragment"
+            android:icon="@drawable/ic_menu_list"
+            android:title="@string/action_list" />
     </group>
+
+    <item android:title="@string/group_info">
+        <menu>
+            <item
+                android:id="@+id/welcomeFragment"
+                android:icon="@drawable/ic_baseline_home_24"
+                android:title="@string/action_welcome" />
+            <item
+                android:id="@+id/contactFragment"
+                android:icon="@drawable/ic_baseline_email_24"
+                android:title="@string/action_contact" />
+            <item
+                android:id="@+id/galleryFragment"
+                android:icon="@drawable/ic_menu_gallery"
+                android:title="@string/action_gallery" />
+            <item
+                android:id="@+id/infoFragment"
+                android:icon="@drawable/ic_menu_slideshow"
+                android:title="@string/action_slideshow" />
+
+        </menu>
+    </item>
 
     <item android:title="Access Control">
         <menu>
             <item
-                android:id="@+id/nav_sign_out"
+                android:id="@+id/signout"
                 android:icon="@android:drawable/ic_menu_revert"
                 android:onClick="signOut"
                 android:title="@string/sign_out" />
         </menu>
     </item>
 </menu>
+

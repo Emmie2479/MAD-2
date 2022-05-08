@@ -3,47 +3,209 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/registrationFragment">
+    app:startDestination="@id/listFragment">
 
     <fragment
-        android:id="@+id/registrationFragment"
-        android:name="ie.wit.wildr.ui.registration.RegistrationFragment"
-        android:label="fragment_registration"
-        tools:layout="@layout/fragment_registration" >
+        android:id="@+id/formFragment"
+        android:name="ie.wit.wildr.ui.form.FormFragment"
+        android:label="@string/action_form"
+        tools:layout="@layout/fragment_form" >
         <action
-            android:id="@+id/action_registrationFragment_to_catalogueFragment"
-            app:destination="@id/catalogueFragment"
+            android:id="@+id/action_formFragment_to_listFragment"
+            app:destination="@id/listFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_formFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_formFragment_to_infoFragment"
+            app:destination="@id/infoFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_formFragment_to_galleryFragment"
+            app:destination="@id/galleryFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_formFragment_to_contactFragment"
+            app:destination="@id/contactFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
     <fragment
-        android:id="@+id/catalogueFragment"
-        android:name="ie.wit.wildr.ui.catalogue.CatalogueFragment"
-        android:label="fragment_catalogue"
-        tools:layout="@layout/fragment_catalogue" >
+        android:id="@+id/listFragment"
+        android:name="ie.wit.wildr.ui.list.ListFragment"
+        android:label="@string/action_list"
+        tools:layout="@layout/fragment_list" >
         <action
-            android:id="@+id/action_catalogueFragment_to_registrationFragment"
-            app:destination="@id/registrationFragment"
+            android:id="@+id/action_listFragment_to_formFragment"
+            app:destination="@id/formFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
         <action
-            android:id="@+id/action_catalogueFragment_to_detailFragment"
-            app:destination="@id/detailFragment"
+            android:id="@+id/action_listFragment_to_DetailFragment"
+            app:destination="@id/DetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_listFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_listFragment_to_infoFragment"
+            app:destination="@id/infoFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_listFragment_to_galleryFragment"
+            app:destination="@id/galleryFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_listFragment_to_contactFragment"
+            app:destination="@id/contactFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
+
     <fragment
-        android:id="@+id/detailFragment"
+        android:id="@+id/DetailFragment"
         android:name="ie.wit.wildr.ui.detail.DetailFragment"
-        android:label="fragment_detail"
+        android:label="Animal Detail"
         tools:layout="@layout/fragment_detail" >
         <action
-            android:id="@+id/action_detailFragment_to_catalogueFragment"
-            app:destination="@id/catalogueFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            android:id="@+id/action_DetailFragment_to_listFragment"
+            app:destination="@id/listFragment" />
         <argument
             android:name="animalid"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="ie.wit.wildr.ui.welcome.WelcomeFragment"
+        android:label="fragment_welcome"
+        tools:layout="@layout/fragment_welcome" >
+        <action
+            android:id="@+id/action_welcomeFragment_to_formFragment"
+            app:destination="@id/formFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_listFragment"
+            app:destination="@id/listFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_infoFragment"
+            app:destination="@id/infoFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_galleryFragment"
+            app:destination="@id/galleryFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_contactFragment"
+            app:destination="@id/contactFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="ie.wit.wildr.ui.slideshow.InfoFragment"
+        android:label="fragment_info"
+        tools:layout="@layout/fragment_info" >
+        <action
+            android:id="@+id/action_infoFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_infoFragment_to_formFragment"
+            app:destination="@id/formFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_infoFragment_to_contactFragment"
+            app:destination="@id/contactFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_infoFragment_to_galleryFragment"
+            app:destination="@id/galleryFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_infoFragment_to_listFragment"
+            app:destination="@id/listFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/galleryFragment"
+        android:name="ie.wit.wildr.ui.gallery.GalleryFragment"
+        android:label="fragment_animalgallery"
+        tools:layout="@layout/fragment_animalgallery" >
+        <action
+            android:id="@+id/action_galleryFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_galleryFragment_to_infoFragment"
+            app:destination="@id/infoFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_galleryFragment_to_formFragment"
+            app:destination="@id/formFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_galleryFragment_to_contactFragment"
+            app:destination="@id/contactFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_galleryFragment_to_listFragment"
+            app:destination="@id/listFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/contactFragment"
+        android:name="ie.wit.wildr.ui.contact.ContactFragment"
+        android:label="ContactFragment" >
+        <action
+            android:id="@+id/action_contactFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_contactFragment_to_infoFragment"
+            app:destination="@id/infoFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_contactFragment_to_galleryFragment"
+            app:destination="@id/galleryFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_contactFragment_to_formFragment"
+            app:destination="@id/formFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_contactFragment_to_listFragment"
+            app:destination="@id/listFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
 </navigation>

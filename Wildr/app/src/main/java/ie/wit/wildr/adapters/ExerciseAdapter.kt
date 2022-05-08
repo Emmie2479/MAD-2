@@ -9,21 +9,21 @@ import com.makeramen.roundedimageview.RoundedTransformationBuilder
 import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.Picasso
 import ie.wit.wildr.R
-import ie.wit.wildr.databinding.CardWildrBinding
-import ie.wit.wildr.models.WildrModel
+import ie.wit.wildr.databinding.CardAnimalBinding
+import ie.wit.wildr.models.AnimalModel
 import ie.wit.wildr.utils.customTransformation
 
-interface WildrClickListener {
-    fun onWildrClick(animal: WildrModel)
+interface AnimalClickListener {
+    fun onAnimalClick(animal: AnimalModel)
 }
 
-class WildrAdapter constructor(private var animals: ArrayList<WildrModel>,
-                                  private val listener: WildrClickListener,
+class AnimalAdapter constructor(private var animals: ArrayList<AnimalModel>,
+                                  private val listener: AnimalClickListener,
                                   private val readOnly: Boolean)
-    : RecyclerView.Adapter<WildrAdapter.MainHolder>() {
+    : RecyclerView.Adapter<AnimalAdapter.MainHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
-        val binding = CardWildrBinding
+        val binding = CardAnimalBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
 
         return MainHolder(binding,readOnly)
@@ -41,12 +41,12 @@ class WildrAdapter constructor(private var animals: ArrayList<WildrModel>,
 
     override fun getItemCount(): Int = animals.size
 
-    inner class MainHolder(val binding : CardWildrBinding, private val readOnly : Boolean) :
+    inner class MainHolder(val binding : CardAnimalBinding, private val readOnly : Boolean) :
         RecyclerView.ViewHolder(binding.root) {
 
         val readOnlyRow = readOnly
 
-        fun bind(animal: WildrModel, listener: WildrClickListener) {
+        fun bind(animal: AnimalModel, listener: AnimalClickListener) {
             binding.root.tag = animal
             binding.animal = animal
 
@@ -56,7 +56,7 @@ class WildrAdapter constructor(private var animals: ArrayList<WildrModel>,
                 .centerCrop()
                 .memoryPolicy(MemoryPolicy.NO_CACHE)
                 .into(binding.imageIcon)
-            binding.root.setOnClickListener { listener.onWildrClick(animal) }
+            binding.root.setOnClickListener { listener.onAnimalClick(animal) }
             binding.executePendingBindings()
         }
     }

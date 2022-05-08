@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import ie.wit.wildr.databinding.FragmentDetailBinding
 import ie.wit.wildr.ui.auth.LoggedInViewModel
-import ie.wit.wildr.ui.catalogue.CatalogueViewModel
+import ie.wit.wildr.ui.list.ListViewModel
 import timber.log.Timber
 
 class DetailFragment : Fragment() {
@@ -22,7 +22,7 @@ class DetailFragment : Fragment() {
     private var _fragBinding: FragmentDetailBinding? = null
     private val fragBinding get() = _fragBinding!!
     private val loggedInViewModel : LoggedInViewModel by activityViewModels()
-    private val catalogueViewModel : CatalogueViewModel by activityViewModels()
+    private val listViewModel : ListViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?
@@ -34,17 +34,17 @@ class DetailFragment : Fragment() {
         detailViewModel.observableAnimal.observe(viewLifecycleOwner, Observer { render() })
 
         fragBinding.editAnimalButton.setOnClickListener {
-            detailViewModel.updateAnimal(loggedInViewModel.liveFirebaseUser.value?.email!!,
+            detailViewModel.updateAnimal(loggedInViewModel.liveFirebaseUser.value?.uid!!,
                 args.animalid, fragBinding.animalvm?.observableAnimal!!.value!!)
             //Force Reload of list to guarantee refresh
-            catalogueViewModel.load()
+            listViewModel.load()
             findNavController().navigateUp()
             //findNavController().popBackStack()
 
         }
 
         fragBinding.deleteAnimalButton.setOnClickListener {
-            catalogueViewModel.delete(loggedInViewModel.liveFirebaseUser.value?.email!!,
+            listViewModel.delete(loggedInViewModel.liveFirebaseUser.value?.uid!!,
                 detailViewModel.observableAnimal.value?.uid!!)
             findNavController().navigateUp()
         }
@@ -58,7 +58,7 @@ class DetailFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        detailViewModel.getAnimal(loggedInViewModel.liveFirebaseUser.value?.email!!,
+        detailViewModel.getAnimal(loggedInViewModel.liveFirebaseUser.value?.uid!!,
             args.animalid)
     }
 

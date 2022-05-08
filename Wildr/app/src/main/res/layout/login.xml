@@ -3,7 +3,7 @@
     android:id="@+id/login_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
+    android:background="@color/colorSecondary"
     android:orientation="vertical"
     android:weightSum="4">
 
@@ -20,7 +20,7 @@
             android:layout_width="286dp"
             android:layout_height="325dp"
             android:contentDescription="@string/desc_firebase_lockup"
-            android:src="@drawable/img" />
+            android:src="@drawable/logo" />
 
         <TextView
             android:id="@+id/titleText"
@@ -35,12 +35,13 @@
             android:id="@+id/status"
             style="@style/ThemeOverlay.MyTextDetail"
             android:text="@string/signed_out"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/colorAccent" />
 
         <TextView
             android:id="@+id/detail"
             style="@style/ThemeOverlay.MyTextDetail"
-            tools:text="Firebase User ID: 123456789abc" />
+            tools:text="Firebase User ID: 123456789abc"
+            android:textColor="@color/white"/>
 
     </LinearLayout>
 
@@ -49,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/colorWhite"
+        android:background="@color/white"
         android:gravity="center_vertical">
 
         <LinearLayout

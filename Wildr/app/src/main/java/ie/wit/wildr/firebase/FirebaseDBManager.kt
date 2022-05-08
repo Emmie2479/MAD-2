@@ -3,72 +3,71 @@ package ie.wit.wildr.firebase
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
-import ie.wit.wildr.models.WildrModel
-import ie.wit.wildr.models.WildrStore
+import ie.wit.wildr.models.AnimalModel
+import ie.wit.wildr.models.AnimalStore
 import timber.log.Timber
 
-
-object FirebaseDBManager : WildrStore {
+object FirebaseDBManager : AnimalStore {
 
     var database: DatabaseReference = FirebaseDatabase.getInstance().reference
 
-    override fun findAll(animalsCatalogue: MutableLiveData<List<WildrModel>>) {
+    override fun findAll(animalsList: MutableLiveData<List<AnimalModel>>) {
         database.child("animals")
             .addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(error: DatabaseError) {
-                    Timber.i("Firebase Wildr error : ${error.message}")
+                    Timber.i("Firebase Animal error : ${error.message}")
                 }
 
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val localList = ArrayList<WildrModel>()
+                    val localList = ArrayList<AnimalModel>()
                     val children = snapshot.children
                     children.forEach {
-                        val animal = it.getValue(WildrModel::class.java)
+                        val animal = it.getValue(AnimalModel::class.java)
                         localList.add(animal!!)
                     }
-                    database.child("animals")
+                    database.child("exercises")
                         .removeEventListener(this)
 
-                    animalsCatalogue.value = localList
+                    animalsList.value = localList
                 }
             })
     }
 
-    override fun findAll(userid: String, animalsCatalogue: MutableLiveData<List<WildrModel>>) {
+    override fun findAll(userid: String, animalsList: MutableLiveData<List<AnimalModel>>) {
 
         database.child("user-animals").child(userid)
             .addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(error: DatabaseError) {
-                    Timber.i("Firebase Wildr error : ${error.message}")
+                    Timber.i("Firebase Animal error : ${error.message}")
                 }
 
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val localList = ArrayList<WildrModel>()
+                    val localList = ArrayList<AnimalModel>()
                     val children = snapshot.children
                     children.forEach {
-                        val animal = it.getValue(WildrModel::class.java)
+                        val animal = it.getValue(AnimalModel::class.java)
                         localList.add(animal!!)
                     }
                     database.child("user-animals").child(userid)
                         .removeEventListener(this)
 
-                    animalsCatalogue.value = localList
+                    animalsList.value = localList
                 }
             })
     }
 
-    override fun findById(userid: String, animalid: String, animal: MutableLiveData<WildrModel>) {
+    override fun findById(userid: String, animalid: String, animal: MutableLiveData<AnimalModel>) {
 
         database.child("user-animals").child(userid)
             .child(animalid).get().addOnSuccessListener {
-                animal.value = it.getValue(WildrModel::class.java)
+                animal.value = it.getValue(AnimalModel::class.java)
                 Timber.i("firebase Got value ${it.value}")
             }.addOnFailureListener{
                 Timber.e("firebase Error getting data $it")
             }
     }
 
-    override fun create(firebaseUser: MutableLiveData<FirebaseUser>, animal: WildrModel) {
+    override fun create(firebaseUser: MutableLiveData<FirebaseUser>, animal: AnimalModel) {
         Timber.i("Firebase DB Reference : $database")
 
         val uid = firebaseUser.value!!.uid
@@ -96,7 +95,7 @@ object FirebaseDBManager : WildrStore {
         database.updateChildren(childDelete)
     }
 
-    override fun update(userid: String, animalid: String, animal: WildrModel) {
+    override fun update(userid: String, animalid: String, animal: AnimalModel) {
 
         val animalValues = animal.toMap()
 
@@ -119,8 +118,8 @@ object FirebaseDBManager : WildrStore {
                     snapshot.children.forEach {
                         //Update Users imageUri
                         it.ref.child("profilepic").setValue(imageUri)
-                        //Update all donations that match 'it'
-                        val animal = it.getValue(WildrModel::class.java)
+                        //Update all exercises that match 'it'
+                        val animal = it.getValue(AnimalModel::class.java)
                         allAnimals.child(animal!!.uid!!)
                             .child("profilepic").setValue(imageUri)
                     }

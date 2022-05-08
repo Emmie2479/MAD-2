@@ -26,7 +26,7 @@ object FirebaseImageManager {
 
     fun checkStorageForExistingProfilePic(userid: String) {
         val imageRef = storage.child("photos").child("${userid}.jpg")
-        val defaultImageRef = storage.child("img.png")
+        val defaultImageRef = storage.child("logo.png")
 
         imageRef.metadata.addOnSuccessListener { //File Exists
             imageRef.downloadUrl.addOnCompleteListener { task ->
@@ -98,28 +98,28 @@ object FirebaseImageManager {
 
     fun updateDefaultImage(userid: String, resource: Int, imageView: ImageView) {
         Picasso.get().load(resource)
-                .resize(200, 200)
-                .transform(customTransformation())
-                .memoryPolicy(MemoryPolicy.NO_CACHE)
-                .centerCrop()
-                .into(object : Target {
-                    override fun onBitmapLoaded(bitmap: Bitmap?,
-                                                from: Picasso.LoadedFrom?
-                    ) {
-                        Timber.i("Wildr onBitmapLoaded $bitmap")
-                        uploadImageToFirebase(userid, bitmap!!,false)
-                        imageView.setImageBitmap(bitmap)
-                    }
+            .resize(200, 200)
+            .transform(customTransformation())
+            .memoryPolicy(MemoryPolicy.NO_CACHE)
+            .centerCrop()
+            .into(object : Target {
+                override fun onBitmapLoaded(bitmap: Bitmap?,
+                                            from: Picasso.LoadedFrom?
+                ) {
+                    Timber.i("Wildr onBitmapLoaded $bitmap")
+                    uploadImageToFirebase(userid, bitmap!!,false)
+                    imageView.setImageBitmap(bitmap)
+                }
 
-                    override fun onBitmapFailed(e: java.lang.Exception?,
-                                                errorDrawable: Drawable?) {
-                        Timber.i("Wildr onBitmapFailed $e")
-                    }
+                override fun onBitmapFailed(e: java.lang.Exception?,
+                                            errorDrawable: Drawable?) {
+                    Timber.i("Wildr onBitmapFailed $e")
+                }
 
-                    override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-                        Timber.i("Wildr onPrepareLoad $placeHolderDrawable")
-                        //uploadImageToFirebase(userid, defaultImageUri.value,updating)
-                    }
-                })
+                override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
+                    Timber.i("Wildr onPrepareLoad $placeHolderDrawable")
+                    //uploadImageToFirebase(userid, defaultImageUri.value,updating)
+                }
+            })
     }
 }

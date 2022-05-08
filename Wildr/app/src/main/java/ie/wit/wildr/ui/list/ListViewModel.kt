@@ -1,29 +1,29 @@
-package ie.wit.wildr.ui.catalogue
+package ie.wit.wildr.ui.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseUser
 import ie.wit.wildr.firebase.FirebaseDBManager
-import ie.wit.wildr.models.WildrModel
+import ie.wit.wildr.models.AnimalModel
 import timber.log.Timber
 import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
 
-class CatalogueViewModel : ViewModel() {
+class ListViewModel : ViewModel() {
 
-    private val animalsCatalogue =
-        MutableLiveData<List<WildrModel>>()
+    private val animalsList =
+        MutableLiveData<List<AnimalModel>>()
 
-    val observableAnimalsCatalogue: LiveData<List<WildrModel>>
-        get() = animalsCatalogue
+    val observableAnimalsList: LiveData<List<AnimalModel>>
+        get() = animalsList
 
     var liveFirebaseUser = MutableLiveData<FirebaseUser>()
 
     var readOnly = MutableLiveData(false)
 
-    var searchResults = ArrayList<WildrModel>()
+    var searchResults = ArrayList<AnimalModel>()
 
     init { load() }
 
@@ -31,32 +31,32 @@ class CatalogueViewModel : ViewModel() {
         try {
             readOnly.value = false
             FirebaseDBManager.findAll(liveFirebaseUser.value?.uid!!,
-                animalsCatalogue)
-            Timber.i("Catalogue Load Success : ${animalsCatalogue.value.toString()}")
+                animalsList)
+            Timber.i("List Load Success : ${animalsList.value.toString()}")
         }
         catch (e: Exception) {
-            Timber.i("Catalogue Load Error : $e.message")
+            Timber.i("List Load Error : $e.message")
         }
     }
 
     fun loadAll() {
         try {
             readOnly.value = true
-            FirebaseDBManager.findAll(animalsCatalogue)
-            Timber.i("Catalogue LoadAll Success : ${animalsCatalogue.value.toString()}")
+            FirebaseDBManager.findAll(animalsList)
+            Timber.i("List LoadAll Success : ${animalsList.value.toString()}")
         }
         catch (e: Exception) {
-            Timber.i("Catalogue LoadAll Error : $e.message")
+            Timber.i("List LoadAll Error : $e.message")
         }
     }
 
     fun delete(userid: String, id: String) {
         try {
             FirebaseDBManager.delete(userid,id)
-            Timber.i("Catalogue Delete Success")
+            Timber.i("List Delete Success")
         }
         catch (e: Exception) {
-            Timber.i("Catalogue Delete Error : $e.message")
+            Timber.i("List Delete Error : $e.message")
         }
     }
 }

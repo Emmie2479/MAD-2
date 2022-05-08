@@ -1,4 +1,4 @@
-package ie.wit.wildr.ui.registration
+package ie.wit.wildr.ui.form
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseUser
 import ie.wit.wildr.firebase.FirebaseDBManager
 import ie.wit.wildr.firebase.FirebaseImageManager
-import ie.wit.wildr.models.WildrModel
+import ie.wit.wildr.models.AnimalModel
 
-class RegistrationViewModel : ViewModel() {
+class FormViewModel : ViewModel() {
 
     private val status = MutableLiveData<Boolean>()
 
@@ -16,7 +16,7 @@ class RegistrationViewModel : ViewModel() {
         get() = status
 
     fun addAnimal(firebaseUser: MutableLiveData<FirebaseUser>,
-                    animal: WildrModel) {
+                    animal: AnimalModel) {
         status.value = try {
             animal.profilepic = FirebaseImageManager.imageUri.value.toString()
             FirebaseDBManager.create(firebaseUser,animal)
@@ -25,4 +25,5 @@ class RegistrationViewModel : ViewModel() {
             false
         }
     }
+
 }
